@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Listeners;
+
+use App\Events\UserSaved;
+use App\Services\UserService;
+
+class SaveUserBackgroundInformation
+{
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
+    public function handle(UserSaved $event)
+    {
+        $user = $event->user;
+
+        $this->userService->saveUserDetails($user);
+    }
+}
